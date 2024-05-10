@@ -1,0 +1,61 @@
+<app-header></app-header>
+<div *ngIf="claim" class="container">
+  <h2 class="text-center">Process Claim</h2>
+  <div class="container w-50 mt-5 mb-5 mx-auto">
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Claim ID:</strong> {{claim.claimsId}}</li>
+        <li class="list-group-item"><strong>Policy ID:</strong> {{claim.policyId}}</li>
+        <li class="list-group-item"><strong>User Name:</strong> {{claim.userName}}</li>
+        <li class="list-group-item"><strong>Subscription Id:</strong> {{claim.subscriptionId}}</li>
+        <li class="list-group-item"><strong>Claim Date:</strong> {{claim.claimDate}}</li>
+        <li class="list-group-item"><strong>Claim Type:</strong> {{claimType}}</li>
+        <li class="list-group-item"><strong>Claim Summary:</strong> {{claim.claimSummary}}</li>
+        <li class="list-group-item"><strong>Claim Details:</strong> {{claim.claimDetails}}</li>
+        <li class="list-group-item"><strong>Claim Status:</strong> {{claim.claimStatus}}</li>
+        <li class="list-group-item"><strong>Is Raised By Policy Holder:</strong> {{claim.raisedByPolicyHolder}}</li>
+        <li class="list-group-item"><strong>Claimant Full Name:</strong> {{claim.claimantFullName}}</li>
+        <li class="list-group-item"><strong>Claimant Date Of Birth:</strong> {{claim.claimantDateOfBirth}}</li>
+        <li class="list-group-item"><strong>Claimant Address:</strong> {{claim.claimantAddress}}</li>
+        <li class="list-group-item"><strong>Claimant Id Proof Type:</strong> {{claim.claimantIDProofType}}</li>
+        <li class="list-group-item"><strong>Claimant Id Proof Number:</strong> {{claim.claimantIDProofNumber}}</li>
+        <li class="list-group-item"><strong>Response ETA:</strong> {{claim.responseETA}}</li>
+      </ul>
+    </div>
+
+    <pre></pre>
+    <div>
+      <form [formGroup]="processForm">
+        <div class="form-group">
+          <strong>
+            <label for="responseDetails">Enter Response Details:</label>
+          </strong>
+          <textarea class="form-control" id="responseDetails" formControlName="responseDetails"
+            placeholder="Enter your response here"></textarea>
+          <span *ngIf="processForm.get('responseDetails').touched">
+            <p *ngIf="processForm.get('responseDetails').hasError('required')" class="text-danger">Response details is
+              required</p>
+            <p *ngIf="processForm.get('responseDetails').hasError('minlength')" class="text-danger">Response details
+              should contain 50 to 500 characters</p>
+          </span>
+        </div>
+        <br>
+        <div *ngIf="claimResponse">
+          <div class="alert alert-success text-center">
+            <strong>{{update}}</strong><br>
+            Claim ID: {{claimResponse.claimId}}<br>
+            Claim Responses ID: {{claimResponse.claimResponsesId}}<br>
+            Response Date: {{claimResponse.responseDate}}<br>
+            Response Details: {{claimResponse.responseDetails}}
+          </div>
+        </div>
+        <div class="container w-50 mb-5 mx-auto">
+          <button type="submit" [disabled]="processForm.invalid || claimResponse" class="btn btn-success m-2"
+            (click)="approveClaim()">Approve</button>
+          <button type="submit" [disabled]="processForm.invalid || claimResponse" class="btn btn-danger m-2"
+            (click)="rejectClaim()">Reject</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

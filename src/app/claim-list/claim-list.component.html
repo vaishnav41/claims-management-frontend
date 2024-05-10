@@ -1,0 +1,30 @@
+<app-header></app-header>
+<h2 class="text-center">Claim List</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Claim ID</th>
+      <th scope="col">Policy ID</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Subscription Id</th>
+      <th scope="col">Claim Date</th>
+      <th scope="col">Claim Type</th>
+      <th scope="col">Claim Summary</th>
+      <th scope="col">Response ETA</th>
+      <th scope="col">Process</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let claim of claims">
+      <td scope="col">{{claim.claimsId}}</td>
+      <td scope="col">{{claim.policyId}}</td>
+      <td scope="col">{{claim.userName}}</td>
+      <td scope="col">{{claim.subscriptionId}}</td>
+      <td scope="col">{{claim.claimDate}}</td>
+      <td scope="col">{{getType(claim.claimTypeId).type}}</td>
+      <td scope="col">{{claim.claimSummary}}</td>
+      <td scope="col">{{claim.responseETA}}</td>
+      <td> <button class="btn btn-primary" type="button" (click)="viewClaimById(claim.claimsId);">Process</button></td>
+    </tr>
+  </tbody>
+</table>
